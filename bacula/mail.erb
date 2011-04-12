@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <style>
+      body {
+        line-height: 1.6em;
+        background-color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <h3 style="color: #003399">Good news everyone! Backup is done!</h3>
+
+    <table class="hor-minimalist-a" style="font-family: 'Lucida Sans Unicode', 'Lucida Granda', Sans-Serif; font-size: 12px; background: #fff; border-collapse: collapse; text-align: left;">
+      <thead>
+        <tr>
+          <th style="font-size: 14px; font-weight: normal; color: #039; padding: 10px 8px; border-bottom: 2px solid #6678b1;">Job Id</th>
+          <th style="font-size: 14px; font-weight: normal; color: #039; padding: 10px 8px; border-bottom: 2px solid #6678b1;">From</th>
+          <th style="font-size: 14px; font-weight: normal; color: #039; padding: 10px 8px; border-bottom: 2px solid #6678b1;">What</th>
+          <th style="font-size: 14px; font-weight: normal; color: #039; padding: 10px 8px; border-bottom: 2px solid #6678b1;">Backup Level</th>
+          <th style="font-size: 14px; font-weight: normal; color: #039; padding: 10px 8px; border-bottom: 2px solid #6678b1;">Start time</th>
+          <th style="font-size: 14px; font-weight: normal; color: #039; padding: 10px 8px; border-bottom: 2px solid #6678b1;">Time Spent</th>
+          <th style="font-size: 14px; font-weight: normal; color: #039; padding: 10px 8px; border-bottom: 2px solid #6678b1;">Status</th>
+          <th style="font-size: 14px; font-weight: normal; color: #039; padding: 10px 8px; border-bottom: 2px solid #6678b1;">Backup Files</th>
+          <th style="font-size: 14px; font-weight: normal; color: #039; padding: 10px 8px; border-bottom: 2px solid #6678b1;">Backup Size</th>
+          <th style="font-size: 14px; font-weight: normal; color: #039; padding: 10px 8px; border-bottom: 2px solid #6678b1;">Errors</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @jobs.each do |job| %>
+          <tr>
+            <td style="color: #669; padding: 9px 8px 0px 8px;"><%= job.jobid %></td>
+            <td style="color: #669; padding: 9px 8px 0px 8px;"><%= job.client.name %></td>
+            <td style="color: #669; padding: 9px 8px 0px 8px;"><%= job.name.gsub("backup-", '') %></td>
+            <td style="color: #669; padding: 9px 8px 0px 8px;"><%= job.backup_level %></td>
+            <td style="color: #669; padding: 9px 8px 0px 8px;"><%= job.starttime.strftime("%d/%m/%Y %H:%M") %></td>
+            <td style="color: #669; padding: 9px 8px 0px 8px;"><%= "%.2f" % job.time_spent %> min</td>
+            <% if job.termination_ok?  %>
+              <td style="color: green; padding: 9px 8px 0px 8px;" > <%= job.job_status.jobstatuslong %></td>
+            <% else  %>
+              <td  style="color: #669; padding: 9px 8px 0px 8px;"> <%= job.job_status.jobstatuslong %></td>
+            <% end  %>
+            <td  style="color: #669; padding: 9px 8px 0px 8px;"><%= job.jobfiles %></td>
+            <td  style="color: #669; padding: 9px 8px 0px 8px;"><%= "%.2f" % job.backup_size  %> Mb</td>
+            <td  style="color: #669; padding: 9px 8px 0px 8px;"><%= job.joberrors %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <br/>
+    <br/>
+
+    <table style="font-family: 'Lucida Sans Unicode', 'Lucida Granda', Sans-Serif; font-size: 12px; background: #fff; border-collapse: collapse; text-align: left;">
+      <tr>
+        <th style="font-size: 14px; font-weight: normal; color: #039; padding: 10px 8px; border-bottom: 2px solid #6678b1;">Disk</th>
+        <th style="font-size: 14px; font-weight: normal; color: #039; padding: 10px 8px; border-bottom: 2px solid #6678b1;">Full Size</th>
+        <th style="font-size: 14px; font-weight: normal; color: #039; padding: 10px 8px; border-bottom: 2px solid #6678b1;">Used</th>
+        <th style="font-size: 14px; font-weight: normal; color: #039; padding: 10px 8px; border-bottom: 2px solid #6678b1;">Avaliable</th>
+        <th style="font-size: 14px; font-weight: normal; color: #039; padding: 10px 8px; border-bottom: 2px solid #6678b1;">Use (percent) </th>
+        <th style="font-size: 14px; font-weight: normal; color: #039; padding: 10px 8px; border-bottom: 2px solid #6678b1;">Mounted</th>
+      </tr>
+      <tr>
+        <td style="color: #669; padding: 9px 8px 0px 8px;"><%= System.disk %></td>
+        <td style="color: #669; padding: 9px 8px 0px 8px;"><%= System.fullsize %></td>
+        <td style="color: #669; padding: 9px 8px 0px 8px;"><%= System.used %></td>
+        <td style="color: #669; padding: 9px 8px 0px 8px;"><%= System.avaliable %></td>
+        <td style="color: #669; padding: 9px 8px 0px 8px;"><%= System.use %></td>
+        <td style="color: #669; padding: 9px 8px 0px 8px;"><%= System.mounted %></td>
+      </tr>
+    </table>
+  </body>
+</html>
