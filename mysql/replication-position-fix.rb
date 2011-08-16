@@ -6,7 +6,7 @@ require 'mysql'
 
 puts "+++ running Replication position detection #{Time.now}"
 
-con = Mysql.new('localhost', 'deploy', 'PRbPu3G4CY', 'information_schema')
+con = Mysql.new('localhost', 'deploy', 'xxxxxx', 'information_schema')
 
 
 skipped = 0
